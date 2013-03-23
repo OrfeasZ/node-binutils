@@ -1,0 +1,10 @@
+{
+    "name": "binutils",
+    "version": "0.1.0",
+    "author": "Orfeas Zafeiris <orfeaz@gmail.com>",
+    "description": "A .NET-like BinaryReader and BinaryWriter with endianness support.",
+    "main": "./binutils.js",
+    "engines": {
+        "node": ">=0.10"
+    }
+}
