@@ -1,7 +1,7 @@
 var BinaryReader = function(p_InputBuffer, p_Endianness, p_Encoding) {
     // Instantiate the buffer (if needed)
     if (p_InputBuffer instanceof Buffer) {
-        this.ByteBuffer = p_InputBuffer;
+        this.ByteBuffer = new Buffer(p_InputBuffer);
     } else if (p_InputBuffer instanceof Array || typeof p_InputBuffer == 'string') {
         this.ByteBuffer = new Buffer(p_InputBuffer, p_Encoding);
     } else {
@@ -28,7 +28,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = this.ByteBuffer.readUInt8(0);
-        this.ByteBuffer = this.ByteBuffer.slice(1, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(1);
         ++this.Position;
         return s_Val;
     },
@@ -39,7 +39,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = (this.Endianness == 'little') ? this.ByteBuffer.readUInt16LE(0) : this.ByteBuffer.readUInt16BE(0);
-        this.ByteBuffer = this.ByteBuffer.slice(2, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(2);
         this.Position += 2;
         return s_Val;
     },
@@ -50,7 +50,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = (this.Endianness == 'little') ? this.ByteBuffer.readUInt32LE(0) : this.ByteBuffer.readUInt32BE(0);
-        this.ByteBuffer = this.ByteBuffer.slice(4, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(4);
         this.Position += 4;
         return s_Val;
     },
@@ -61,7 +61,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = this.ByteBuffer.readInt8(0);
-        this.ByteBuffer = this.ByteBuffer.slice(1, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(1);
         ++this.Position;
         return s_Val;
     },
@@ -72,7 +72,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = (this.Endianness == 'little') ? this.ByteBuffer.readInt16LE(0) : this.ByteBuffer.readInt16BE(0);
-        this.ByteBuffer = this.ByteBuffer.slice(2, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(2);
         this.Position += 2;
         return s_Val;
     },
@@ -83,7 +83,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = (this.Endianness == 'little') ? this.ByteBuffer.readInt32LE(0) : this.ByteBuffer.readInt32BE(0);
-        this.ByteBuffer = this.ByteBuffer.slice(4, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(4);
         this.Position += 4;
         return s_Val;
     },
@@ -94,7 +94,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = (this.Endianness == 'little') ? this.ByteBuffer.readFloatLE(0) : this.ByteBuffer.readFloatBE(0);
-        this.ByteBuffer = this.ByteBuffer.slice(4, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(4);
         this.Position += 4;
         return s_Val;
     },
@@ -105,7 +105,7 @@ BinaryReader.prototype = {
         }
 
         var s_Val = (this.Endianness == 'little') ? this.ByteBuffer.readDoubleLE(0) : this.ByteBuffer.readDoubleBE(0);
-        this.ByteBuffer = this.ByteBuffer.slice(8, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(8);
         this.Position += 8;
         return s_Val;
     },
@@ -118,7 +118,7 @@ BinaryReader.prototype = {
         var s_Val = new Buffer(p_Count);
         this.ByteBuffer.copy(s_Val, 0, 0, p_Count);
 
-        this.ByteBuffer = this.ByteBuffer.slice(p_Count, this.ByteBuffer.length);
+        this.ByteBuffer = this.ByteBuffer.slice(p_Count);
 
         this.Position += p_Count;
         return s_Val;
